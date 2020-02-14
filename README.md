@@ -1,2 +1,12 @@
-# Micro_Flask
-Python flask microservice application
+#Author's Information 
+Name: Kranthi Kavuri
+Email: kranthik123@gmail.com
+Repo Name: Micro_Flask
+
+# Application details
+This is a Python flask based microservice.
+
+<Place Holder for more details>
+
+
+
