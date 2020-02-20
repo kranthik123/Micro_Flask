@@ -3,7 +3,7 @@ From python:3
 LABEL maintainer="Kranthi Kavuri <kranthik123@gmail.com>"
 
 WORKDIR /app/tests
-ADD app/. /app/
+ADD app/tests/. /app/tests/
 
 RUN pip install -r ./requirements.txt
 
