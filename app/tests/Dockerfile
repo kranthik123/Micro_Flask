@@ -7,4 +7,4 @@ ADD . /tests/
 
 RUN pip install -r requirements.txt
 
-ENTRYPOINT [ "pytest -v" ]
+RUN pytest -v
