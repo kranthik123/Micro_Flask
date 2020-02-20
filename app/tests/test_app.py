@@ -4,7 +4,7 @@ from flask_app import app
 class TestCases(unittest.TestCase):
         def test_home(self):
                 tester = app.test_client(self)
-                response = tester.get('/', content_type='html/text')
+                response = tester.get('/v', content_type='html/text')
                 self.assertEqual(response.status_code, 200)
 
         def test_other(self):

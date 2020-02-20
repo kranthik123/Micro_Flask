@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: micro_flask_app
+  labels:
+    app: microflask
+spec:
+  selector:
+    matchLabels:
+      app: micro_flask_app
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: micro_flask_app
+        tier: web
+    spec:
+      containers:
+      - name: microflask 
+        image: gcr.io/reliable-brace-268207/microflask:v1
+        ports:
+        - containerPort: 8080
