@@ -1,4 +1,7 @@
 import unittest
+import sys
+sys.path.append(app/)
+
 from flask_app import app
 
 class TestCases(unittest.TestCase):
