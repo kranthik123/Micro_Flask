@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Build'){
             steps{
-
                 sh "sudo docker build . -t flask_app:latest"
+                 }
             }
         }
+}
