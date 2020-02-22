@@ -8,4 +8,4 @@ ADD . /app/
 RUN pip install -r /app/tests/requirements.txt
 
 WORKDIR /app/tests
-RUN pytest -v
+ENTRYPOINT ['nose2']
