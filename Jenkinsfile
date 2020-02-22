@@ -8,9 +8,10 @@ pipeline {
         stage('build-test') { steps { withPythonEnv('python3') { sh "cd \$WORKSPACE/app && pip install -r requirements.txt && nose2 -v --with-coverage" } } }
         stage('push-image') {
             withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
-                    {
+                    {steps{
                         sh "docker login -u '${USERNAME}' -p '${PASSWORD}'"
                         sh "sudo docker push '${USERNAME}'/flask_app:latest"
+                    }
                     }
         }
         stage('Deploy-Dev') { steps { sh "echo Deploy-Dev" } }
