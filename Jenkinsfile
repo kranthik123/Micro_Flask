@@ -6,7 +6,7 @@ pipeline {
         stage('Build') { steps { sh "sudo docker build . -t flask_app:latest && sudo docker build . -t kranthik123/flask_app:latest" } }
         stage('run_container') { steps { sh "sudo docker run -d -p 5000:5000 flask_app:latest" } }
         stage('build-test') { steps { withPythonEnv('python3') { sh "cd \$WORKSPACE/app && pip install -r requirements.txt && nose2 -v --with-coverage" } } }
-        stage('push-image') { steps { withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) { sh "docker login -u '${USERNAME}' -p '${PASSWORD}'" } sh "sudo docker push '${USERNAME}'/flask_app:latest" }}
+        stage('push-image') {withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) { sh "docker login -u '${USERNAME}' -p '${PASSWORD}'" } sh "sudo docker push '${USERNAME}'/flask_app:latest" }
         stage('Deploy-Dev') { steps { sh "echo Deploy-Dev" } }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
