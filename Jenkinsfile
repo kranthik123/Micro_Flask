@@ -8,7 +8,7 @@ pipeline {
         stage('build-test') { steps { withPythonEnv('python3') { sh "cd \$WORKSPACE/app && pip install -r requirements.txt && nose2 -v --with-coverage" } } }
         stage('push-image') {steps { withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
                 {
-                    sh "docker login -u '${USERNAME}' -p '${PASSWORD}'"
+                    sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
                     sh "sudo docker push '${USERNAME}'/flask_app:latest"
                 }
         }
