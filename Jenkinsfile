@@ -29,7 +29,7 @@ pipeline {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
                         {
                             sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
-                            sh "sudo docker push '${USERNAME}'/bdd_py3_test_suite:v01"
+                            sh "sudo docker run -d '${USERNAME}'/bdd_py3_test_suite:v01"
                         }
             }
         }
