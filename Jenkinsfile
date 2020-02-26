@@ -24,6 +24,13 @@ pipeline {
                 }
             }
         }
+        stage('BDD-test') {
+            steps {
+                withPythonEnv('python3') {
+                    sh "sudo docker run -d kranthik123/bdd_py3_test_suite:v01"
+                }
+            }
+        }
         stage('push-image') {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
@@ -38,6 +45,7 @@ pipeline {
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
         stage('Test-stage') { steps { sh "echo Test-stage" } }
         stage('Code-Coverage') { steps { sh "echo Code-Coverage" } }
+        stage('Static-Code-Analysis') { steps { sh "echo Static-Code-Analysis" } }
         stage('Approval-to-prod') { steps { sh "echo Approval-to-prod" } }
         stage('Deploy-prod') { steps { sh "echo Deploy-prod" } }
     }
