@@ -26,7 +26,11 @@ pipeline {
         }
         stage('BDD-test') {
             steps {
-                    sh "sudo docker run -d kranthik123/bdd_py3_test_suite:v01"
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+                        {
+                            sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
+                            sh "sudo docker push '${USERNAME}'/bdd_py3_test_suite:v01"
+                        }
             }
         }
         stage('push-image') {
