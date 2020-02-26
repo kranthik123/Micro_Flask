@@ -26,9 +26,7 @@ pipeline {
         }
         stage('BDD-test') {
             steps {
-                withPythonEnv('python3') {
                     sh "sudo docker run -d kranthik123/bdd_py3_test_suite:v01"
-                }
             }
         }
         stage('push-image') {
