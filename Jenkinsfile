@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('cleanup') {
             steps {
-                sh "docker stop \$(docker ps -a -q)"
+                sh "docker stop \$(docker ps -q)"
             }
         }
         stage('Build') {
