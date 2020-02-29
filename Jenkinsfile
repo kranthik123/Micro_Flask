@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('cleanup') {
             steps {
-                sh "sudo docker stop \$(sudo docker ps -a -q)"
+                sh "docker stop \$(docker ps -a -q)"
             }
         }
         stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
         }
         stage('run_container') {
             steps {
-                sh "sudo docker run -d -p 5000:5000 kranthik123/flask_app:latest"
+                sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
             }
         }
         stage('build-test') {
@@ -31,11 +31,15 @@ pipeline {
         }
         stage('BDD-test') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
-                        {
-                            sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
-                            sh "sudo docker run -d '${USERNAME}'/bdd_py3_test_suite:v01"
-                        }
+                script {
+                    sh "docker run -d kranthik123/bdd_py3_test_suite:v01"
+                    sh "docker logs \$(docker ps -a -q)"
+                }
+//                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+//                        {
+//                            sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
+//                            sh "sudo docker run -d '${USERNAME}'/bdd_py3_test_suite:v01"
+//                        }
             }
         }
         stage('push-image') {
