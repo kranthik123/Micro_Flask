@@ -67,10 +67,11 @@ pipeline {
             steps {
                 script{
                     sh "pwd"
-                    sh "cd \$WORKSPACE/manifests"
-                    sh "sed -i 's/kranthik123:latest/kranthik123:${env.BUILD_ID}/g' dev_deployment.yaml"
-                    sh "echo Deploying to Dev Kubernetes namespace"
+                    sh "cd $WORKSPACE/manifests"
                     sh "cat dev_deployment.yaml"
+                    sh "cd $WORKSPACE/manifests && sed -i 's/kranthik123:latest/kranthik123:"${env.BUILD_ID}"/g' dev_deployment.yaml"
+                    sh "cat dev_deployment.yaml"
+                    sh "echo Deploying to Dev Kubernetes namespace"
                 }
             }
         }
