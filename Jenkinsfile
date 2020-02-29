@@ -2,7 +2,7 @@ pipeline {
     options { disableConcurrentBuilds() }
     agent any
     environment {
-        // EX: USERNAME = 'kranthi'
+        TEST = "TEST"
     }
     stages {
         stage('cleanup') {
