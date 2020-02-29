@@ -9,13 +9,18 @@ pipeline {
     stages {
         stage('cleanup') {
             steps {
-                sh "docker stop \$(docker ps -q)"
+                script{
+                    docker stop \$(docker ps -q)
+                    sleep 5
+                }
             }
         }
         stage('Build') {
             steps {
                 script {
+                    echo "Building Docoker image"
                     myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
+                    sleep 5
                 }
             }
         }
