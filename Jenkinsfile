@@ -66,7 +66,8 @@ pipeline {
         stage('Deploy-To-Dev') {
             steps {
                 script{
-                    pwd && cat dev_deployment.yaml
+                    pwd
+                    cat "dev_deployment.yaml"
                     cd $WORKSPACE/manifests && ls -l && sed -i 's/kranthik123:latest/kranthik123:"${env.BUILD_ID}"/g' dev_deployment.yaml
                     cat dev_deployment.yaml
                     echo "Deploying to Dev Kubernetes namespace"
