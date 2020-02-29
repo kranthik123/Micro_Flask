@@ -1,23 +1,39 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: micro_flask_app
+  name: micro-flask-prod-app
   namespace: ibcprod
   labels:
-    app: microflask
+    app: micro-flask-prod-app
 spec:
   selector:
     matchLabels:
-      app: micro_flask_app
+      app: micro-flask-prod-app
       tier: web
   template:
     metadata:
       labels:
-        app: micro_flask_app
+        app: micro-flask-prod-app
         tier: web
     spec:
       containers:
-      - name: microflask
+      - name: micro-flask-prod-app
         image: kranthik123/flask_app:latest
         ports:
         - containerPort: 8080
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: micro-flask-prod-svc
+  namespace: ibcprod
+  labels:
+    service: flask
+spec:
+  selector:
+    app: micro-flask-prod-app
+  ports:
+  - protocol: "TCP"
+    port: 5000
+    targetPort: 5000
+  type: LoadBalancer

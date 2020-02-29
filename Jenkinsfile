@@ -1,6 +1,9 @@
 pipeline {
     options { disableConcurrentBuilds() }
     agent any
+    environment {
+        // EX: USERNAME = 'kranthi'
+    }
     stages {
         stage('cleanup') {
             steps {
@@ -9,12 +12,14 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh "sudo docker build . -t flask_app:latest && sudo docker build . -t kranthik123/flask_app:latest"
+                script {
+                    myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
+                }
             }
         }
         stage('run_container') {
             steps {
-                sh "sudo docker run -d -p 5000:5000 flask_app:latest"
+                sh "sudo docker run -d -p 5000:5000 kranthik123/flask_app:latest"
             }
         }
         stage('build-test') {
@@ -35,11 +40,17 @@ pipeline {
         }
         stage('push-image') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
-                {
-                    sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
-                    sh "sudo docker push '${USERNAME}'/flask_app:latest"
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'DockerHubCreds') {
+                        myapp.push("latest")
+                        myapp.push("${env.BUILD_ID}")
+                    }
                 }
+//                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+//                {
+//                    sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
+//                    sh "sudo docker push '${USERNAME}'/flask_app:latest"
+//                }
             }
         }
         stage('Deploy-Dev') { steps { sh "echo Deploy-Dev" } }
@@ -63,3 +74,22 @@ pipeline {
             }
   }
 
+//===================================
+//
+//stage("Push image") {
+//    steps {
+//        script {
+//            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+//                myapp.push("latest")
+//                myapp.push("${env.BUILD_ID}")
+//            }
+//        }
+//    }
+//}
+//
+//stage('Deploy to GKE') {
+//    steps{
+//        sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
+//        step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+//    }
+//}
