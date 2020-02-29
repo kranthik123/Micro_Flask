@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}").withRun('-u root')
+                    myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
 //                }
             }
         }
-        stage('Deploy-Dev') { steps { sh "echo Deploy-Dev" } }
+        stage('Deploy-To-Dev') { steps { sh "echo Deploy-Dev" } }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
         stage('Test-stage') { steps { sh "echo Test-stage" } }
