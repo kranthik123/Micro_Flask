@@ -10,6 +10,8 @@ pipeline {
         stage('cleanup') {
             steps {
                 script{
+                    echo "Stopping any old container to release ports needs for the new builds"
+                    sleep 5
                     sh "docker stop \$(docker ps -q)"
                     sleep 5
                 }
@@ -19,6 +21,7 @@ pipeline {
             steps {
                 script {
                     echo "Building Docoker image"
+                    sleep 5
                     myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
                     sleep 5
                 }
@@ -27,13 +30,17 @@ pipeline {
         stage('run_container') {
             steps {
                 script{
+                    echo "Starting Docoker Container locally for testing the build"
+                    sleep 5
                     sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
+                    sleep 5
                 }
             }
         }
         stage('build-test') {
             steps {
                 withPythonEnv('python3') {
+                    echo "Testing the new build to validate code and provide test coverage"
                     sh "cd \$WORKSPACE/app && pip install -r requirements.txt && nose2 -v --with-coverage"
                 }
             }
@@ -59,6 +66,7 @@ pipeline {
         stage('Deploy-To-Dev') {
             steps {
                 script{
+                    sh "pwd"
                     sh "cd \$WORKSPACE/app/manifests"
                     sh "sed -i 's/kranthik123:latest/kranthik123:${env.BUILD_ID}/g' dev_deployment.yaml"
                     sh "echo Deploying to Dev Kubernetes namespace"
