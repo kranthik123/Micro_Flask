@@ -2,7 +2,9 @@ pipeline {
     options { disableConcurrentBuilds() }
     agent any
     environment {
-        TEST = "TEST"
+        PROJECT_ID = 'reliable-brace-268207'
+        CLUSTER_NAME = 'ibc-gke-dev'
+        CREDENTIALS_ID = 'reliable-brace-gcr-credentials'
     }
     stages {
         stage('cleanup') {
@@ -19,7 +21,9 @@ pipeline {
         }
         stage('run_container') {
             steps {
-                sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
+                script{
+                    sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
+                }
             }
         }
         stage('build-test') {
@@ -35,11 +39,6 @@ pipeline {
                     sh "docker run -d kranthik123/bdd_py3_test_suite:v01"
                     sh "docker logs --follow \$(docker ps -l -q)"
                 }
-//                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
-//                        {
-//                            sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
-//                            sh "sudo docker run -d '${USERNAME}'/bdd_py3_test_suite:v01"
-//                        }
             }
         }
         stage('push-image') {
@@ -50,14 +49,17 @@ pipeline {
                         myapp.push("${env.BUILD_ID}")
                     }
                 }
-//                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
-//                {
-//                    sh "sudo docker login -u '${USERNAME}' -p '${PASSWORD}'"
-//                    sh "sudo docker push '${USERNAME}'/flask_app:latest"
-//                }
             }
         }
-        stage('Deploy-To-Dev') { steps { sh "echo Deploy-Dev" } }
+        stage('Deploy-To-Dev') {
+            steps {
+                script{
+                    sh "echo Deploy-Dev"
+                    sh "sed -i 's/kranthik123:latest/kranthik123:${env.BUILD_ID}/g' dev_deployment.yaml"
+                    sh "cat dev_deployment.yaml"
+                }
+            }
+        }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
         stage('Test-stage') { steps { sh "echo Test-stage" } }
@@ -79,18 +81,6 @@ pipeline {
   }
 
 //===================================
-//
-//stage("Push image") {
-//    steps {
-//        script {
-//            docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-//                myapp.push("latest")
-//                myapp.push("${env.BUILD_ID}")
-//            }
-//        }
-//    }
-//}
-//
 //stage('Deploy to GKE') {
 //    steps{
 //        sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
