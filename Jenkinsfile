@@ -30,7 +30,7 @@ pipeline {
         stage('run_container') {
             steps {
                 script{
-                    echo "Starting Docoker Container locally for testing the build"
+                    echo "Starting Docker Container locally for testing the build"
                     sleep 5
                     sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
                     sleep 5
@@ -66,10 +66,10 @@ pipeline {
         stage('Deploy-To-Dev') {
             steps {
                 script{
-                    pwd
-                    cat "dev_deployment.yaml"
-                    cd $WORKSPACE/manifests && ls -l && sed -i 's/kranthik123:latest/kranthik123:"${env.BUILD_ID}"/g' dev_deployment.yaml
-                    cat dev_deployment.yaml
+                    sh pwd
+                    sh "cat dev_deployment.yaml"
+                    sh "cd $WORKSPACE/manifests && ls -l && sed -i 's/kranthik123:latest/kranthik123:"${env.BUILD_ID}"/g' dev_deployment.yaml"
+                    sh "cat dev_deployment.yaml"
                     echo "Deploying to Dev Kubernetes namespace"
                 }
             }
