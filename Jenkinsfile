@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     sh "docker run -d kranthik123/bdd_py3_test_suite:v01"
-                    sh "docker logs \$(docker ps -q)"
+                    sh "docker logs --follow \$(docker ps -l -q)"
                 }
 //                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'DockerHubCreds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
 //                        {
