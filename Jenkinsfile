@@ -10,7 +10,7 @@ pipeline {
         stage('cleanup') {
             steps {
                 script{
-                    docker stop \$(docker ps -q)
+                    "docker stop \$(docker ps -q)"
                     sleep 5
                 }
             }
