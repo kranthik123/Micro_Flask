@@ -13,7 +13,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    myapp = sudo docker.build("kranthik123/flask_app:${env.BUILD_ID}")
+                    myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
                 }
             }
         }
