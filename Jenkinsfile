@@ -73,6 +73,7 @@ pipeline {
             }
         }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
+        stage(promote-to-stage) {input message: "Promote to Stage ?"}
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
         stage('Test-stage') { steps { sh "echo Test-stage" } }
         stage('Code-Coverage') { steps { sh "echo Code-Coverage" } }
