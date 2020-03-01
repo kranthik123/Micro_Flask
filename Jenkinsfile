@@ -67,7 +67,7 @@ pipeline {
             steps {
                 script{
                     sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml"
-                    sh "for file in \$(find . -name dev_deployment.yaml); do sed -i 's/flask_app:latest/flask_app:\${env.BUILD_ID}/g' "$file"; done;"
+                    sh "sed -i 's/flask_app:latest/flask_app:"${env.BUILD_ID}"/g' dev_deployment.yaml"
                     sh "cat dev_deployment.yaml"
                     echo "Deploying to Dev Kubernetes namespace"
                 }
