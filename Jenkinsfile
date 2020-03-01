@@ -20,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "Building Docoker image"
+                    echo "Building Docker image"
                     sleep 5
                     myapp = docker.build("kranthik123/flask_app:${env.BUILD_ID}")
                     sleep 5
@@ -67,7 +67,7 @@ pipeline {
             steps {
                 script{
                     sh "cd \$WORKSPACE/manifests && pwd && ls -l && chmod +w *.* && ls -l"
-                    sh "sed -i 's/flask_app:latest/flask_app:\${env.BUILD_ID}/g' dev_deployment.yaml"
+                    sh "sed -i dev_deployment.yaml 's/flask_app:latest/flask_app:\${env.BUILD_ID}/g'"
                     sh "cat dev_deployment.yaml"
                     echo "Deploying to Dev Kubernetes namespace"
                 }
