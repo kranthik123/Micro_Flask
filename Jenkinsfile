@@ -12,7 +12,6 @@ pipeline {
                 script{
                     echo "Stopping any old container to release ports needs for the new builds"
                     sleep 5
-                    sh "docker stop \$(docker ps -q) 2>/dev/null"
                     sleep 5
                 }
             }
