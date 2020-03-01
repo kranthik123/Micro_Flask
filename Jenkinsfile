@@ -74,9 +74,11 @@ pipeline {
         }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('promote-to-stage') {
-            // Input Step
-            timeout(time: 1, unit: "MINUTES") {
-                input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
+            steps{
+                // Input Step
+                timeout(time: 1, unit: "MINUTES") {
+                    input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
+                }
             }
         }
         stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
