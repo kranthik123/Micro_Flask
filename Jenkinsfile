@@ -65,12 +65,11 @@ pipeline {
         }
         stage('Deploy-To-Dev') {
             steps {
-                script{
-                    sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml"
-                    sh "sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' dev_deployment.yaml"
-                    sh "cat dev_deployment.yaml"
-                    echo "Deploying to Dev Kubernetes namespace"
-                }
+              sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml"
+              sh "sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' dev_deployment.yaml"
+              sh "cat dev_deployment.yaml"
+              echo "Deploying to Dev Kubernetes namespace"
+              step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, manifestPattern: 'dev_deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
