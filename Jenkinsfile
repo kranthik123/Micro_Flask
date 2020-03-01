@@ -67,7 +67,7 @@ pipeline {
             steps {
               sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml && sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' \$WORKSPACE/manifests/dev_deployment.yaml"
               sh "cat \$WORKSPACE/manifests/dev_deployment.yaml"
-              echo "Deploying to Dev Kubernetes namespace"
+              echo "Deploying to Dev Kubernetes namespace "
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, manifestPattern: '\$WORKSPACE/manifests/dev_deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
             }
         }
