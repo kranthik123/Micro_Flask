@@ -66,7 +66,8 @@ pipeline {
         stage('Deploy-To-Dev') {
             steps {
                 script{
-                    sh "cd \$WORKSPACE/manifests && pwd && ls -l && chmod +w *.* && ls -l"
+                    sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml"
+                    sh "sed -f dev_deployment.yaml -i 's/flask_app:latest/flask_app:\${env.BUILD_ID}/g'"
                     sh "cat dev_deployment.yaml"
                     echo "Deploying to Dev Kubernetes namespace"
                 }
