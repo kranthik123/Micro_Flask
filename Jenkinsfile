@@ -66,7 +66,7 @@ pipeline {
         stage('Deploy-To-Dev') {
             steps {
               sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat dev_deployment.yaml"
-              sh "sed -i '''s/flask_app:latest/flask_app:${env.BUILD_ID}/g''' dev_deployment.yaml"
+              sh "sudo sed -i '''s/flask_app:latest/flask_app:${env.BUILD_ID}/g''' dev_deployment.yaml"
               sh "cat dev_deployment.yaml"
               echo "Deploying to Dev Kubernetes namespace"
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, manifestPattern: 'dev_deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
