@@ -88,21 +88,29 @@ pipeline {
               sh "cat \$WORKSPACE/manifests/dev_deployment.yaml"
               echo "Deploying to Dev Kubernetes namespace"
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: "manifests/dev_deployment.yaml", credentialsId: env.CREDENTIALS_ID, verifyDeployments: false])
+              echo "Deploying to Dev Kubernetes namespace completed successfully."
             }
         }
         stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('promote-to-stage') {
             steps{
                 // Input Step
-                timeout(time: 1, unit: "MINUTES") {
+                timeout(time: 2, unit: "MINUTES") {
                     input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
                 }
             }
         }
-        stage('Deploy-stage') { steps { sh "echo Deploy-stage" } }
+        stage('Deploy-To-stage') {
+            steps {
+                sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat stage_deployment.yaml && sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' \$WORKSPACE/manifests/stage_deployment.yaml"
+                sh "cat \$WORKSPACE/manifests/stage_deployment.yaml"
+                echo "Deploying to Stage Kubernetes namespace."
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: "manifests/stage_deployment.yaml", credentialsId: env.CREDENTIALS_ID, verifyDeployments: false])
+                echo "Deploying to Stage Kubernetes namespace completed successfully."
+            }
+        }
         stage('Test-stage') { steps { sh "echo Test-stage" } }
         stage('Code-Coverage') { steps { sh "echo Code-Coverage" } }
-        stage('Static-Code-Analysis') { steps { sh "echo Static-Code-Analysis" } }
         stage('Approval-to-prod') { steps { sh "echo Approval-to-prod" } }
         stage('Deploy-prod') { steps { sh "echo Deploy-prod" } }
     }
