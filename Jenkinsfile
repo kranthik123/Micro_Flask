@@ -29,10 +29,11 @@ pipeline {
             }
         }
         stage('SonarQube Scanner'){
+            def scannerHome = tool '/opt/SonarScanner/sonar-scanner';
             steps{
                 script{
                     withSonarQubeEnv('SonarQube_Server') {
-                        sh "${sonarqube-scanner}/bin/sonar-scanner"
+                        sh "cd \$WORKSPACE && ${sonarqube-scanner}/bin/sonar-scanner"
                     }
                     timeout(time: 2, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
