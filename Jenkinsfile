@@ -43,7 +43,7 @@ pipeline {
                 script{
                     withSonarQubeEnv('SonarQube_Server') {
                         sh "pwd & ls -l"
-                        sh "sudo /opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties"
+                        sh "/opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties"
                     }
 //                    timeout(time: 2, unit: 'MINUTES') {
 //                        waitForQualityGate abortPipeline: true
