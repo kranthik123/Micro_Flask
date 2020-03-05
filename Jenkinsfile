@@ -45,7 +45,7 @@ pipeline {
                         sh "pwd & ls -l"
                         sh "/opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties"
                     }
-                    timeout(time: 2, unit: 'MINUTES') {
+                    timeout(time: 10, unit: 'MINUTES') {
                         waitForQualityGate abortPipeline: true
                     }
                 }
