@@ -43,7 +43,7 @@ pipeline {
                 script{
                     withSonarQubeEnv('SonarQube_Server') {
                         sh "pwd & ls -l"
-                        sh "/opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties -Dsonar.analysis.buildNumber=${env.BUILD_ID}"
+                        sh "/opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties -Dsonar.projectVersion=${env.BUILD_ID}"
                     }
 //                    timeout(time: 10, unit: 'MINUTES') {
 //                        waitForQualityGate(webhookSecretId: 'Micro_Flask_Webhook_Secret') abortPipeline: true
