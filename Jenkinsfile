@@ -28,6 +28,16 @@ pipeline {
                 }
             }
         }
+        stage('SonarQube Scanner'){
+            steps{
+                withSonarQubeEnv('SonarQube_Server') {
+                    sh "${sonarqube-scanner}/bin/sonar-scanner"
+                }
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
         stage('run_container') {
             steps {
                 script{
@@ -36,6 +46,11 @@ pipeline {
                     sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
                     sleep 5
                 }
+            }
+        }
+        stage('Dynamic Vulnerability Scanner') {
+            steps{
+                echo "Dynamic Vulnerability Scanner"
             }
         }
         stage('build-test') {
@@ -101,9 +116,23 @@ pipeline {
   }
 
 //===================================
-//stage('Deploy to GKE') {
-//    steps{
-//        sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
-//        step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
+//stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+//    withSonarQubeEnv('SonarQube_Server') { // If you have configured more than one global server connection, you can specify its name
+//        sh "${sonarqube-scanner}/bin/sonar-scanner"
+//    }
+//}
+
+//stage('Sonarqube') {
+//    environment {
+//        scannerHome = tool 'SonarQubeScanner'
+//    }
+//    steps {
+//        withSonarQubeEnv('sonarqube') {
+//            sh "${scannerHome}/bin/sonar-scanner"
+//        }
+//        timeout(time: 10, unit: 'MINUTES') {
+//            waitForQualityGate abortPipeline: true
+//        }
 //    }
 //}
