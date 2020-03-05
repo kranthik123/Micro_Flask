@@ -28,19 +28,6 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube Scanner'){
-            steps{
-                script{
-                    withSonarQubeEnv('SonarQube_Server') {
-                        sh "pwd & ls -l"
-                        sh "sudo /opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=./sonar-project.properties"
-                    }
-                    timeout(time: 2, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
-                    }
-                }
-            }
-        }
         stage('run_container') {
             steps {
                 script{
@@ -48,6 +35,19 @@ pipeline {
                     sleep 5
                     sh "docker run -d -p 5000:5000 kranthik123/flask_app:${env.BUILD_ID}"
                     sleep 5
+                }
+            }
+        }
+        stage('SonarQube Scanner'){
+            steps{
+                script{
+                    withSonarQubeEnv('SonarQube_Server') {
+                        sh "pwd & ls -l"
+                        sh "sudo /opt/SonarScanner/sonar-scanner/bin/sonar-scanner -X -Dproject.settings=sonar-project.properties"
+                    }
+//                    timeout(time: 2, unit: 'MINUTES') {
+//                        waitForQualityGate abortPipeline: true
+//                    }
                 }
             }
         }
