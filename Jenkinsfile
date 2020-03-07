@@ -51,11 +51,6 @@ pipeline {
                 }
             }
         }
-        stage('Dynamic Vulnerability Scanner') {
-            steps{
-                echo "Dynamic Vulnerability Scanner"
-            }
-        }
         stage('build-test') {
             steps {
                 withPythonEnv('python3') {
@@ -69,6 +64,21 @@ pipeline {
                 script {
                     sh "docker run -d kranthik123/bdd_py3_test_suite:v01"
                     sh "docker logs --follow \$(docker ps -l -q)"
+                }
+            }
+        }
+        stage('Anchore - Container Vulnerability Scanner') {
+            steps {
+                sh 'set'
+                container('anchore') {
+                    echo "Starting Anchore containers"
+                    sh "cd /home/kkavuri/aevolume && sudo docker-compose up -d"
+                    sleep 20
+                    echo "Starting Anchore container vulnerability scanner"
+                    sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
+                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
+                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID}"
+                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID}"
                 }
             }
         }
@@ -91,11 +101,10 @@ pipeline {
               echo "Deploying to Dev Kubernetes namespace completed successfully."
             }
         }
-        stage('Test-Dev') { steps { sh "echo Test-Dev" } }
         stage('promote-to-stage') {
             steps{
                 // Input Step
-                timeout(time: 2, unit: "MINUTES") {
+                timeout(time: 10, unit: "MINUTES") {
                     input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
                 }
             }
@@ -112,7 +121,7 @@ pipeline {
         stage('promote-to-prod') {
             steps{
                 // Input Step
-                timeout(time: 2, unit: "MINUTES") {
+                timeout(time: 10, unit: "MINUTES") {
                     input message: 'Do you want to approve the deployment to production?', ok: 'Yes'
                 }
             }
