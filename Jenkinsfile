@@ -72,7 +72,7 @@ pipeline {
                 sh 'set'
                 script {
                     echo "Starting Anchore containers"
-                    sh "cd /home/kkavuri/aevolume && sudo docker-compose up -d"
+                    sh "cd /aevolume && sudo docker-compose up -d"
                     sleep 20
                     echo "Starting Anchore container vulnerability scanner"
                     sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
