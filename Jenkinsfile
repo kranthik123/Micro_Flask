@@ -74,6 +74,7 @@ pipeline {
                     echo "Starting Anchore containers"
                     sh "cd /aevolume && sudo docker-compose up -d"
                     sleep 20
+                    sh "export PATH=/usr/local/bin:$PATH"
                     echo "Starting Anchore container vulnerability scanner"
                     sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
                     sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
