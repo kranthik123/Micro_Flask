@@ -70,13 +70,14 @@ pipeline {
         stage('Anchore - Container Vulnerability Scanner') {
             steps {
                 sh 'set'
-                container('anchore') {
+                script {
                     echo "Starting Anchore containers"
                     sh "cd /home/kkavuri/aevolume && sudo docker-compose up -d"
                     sleep 20
                     echo "Starting Anchore container vulnerability scanner"
                     sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
                     sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
+                    sleep 5
                     sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID}"
                     sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID}"
                 }
