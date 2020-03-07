@@ -6,6 +6,10 @@ pipeline {
         CLUSTER_NAME = 'ibc-gke-dev'
         CREDENTIALS_ID = 'reliable-brace-gcr-credentials'
         LOCATION = 'us-central1-a'
+        ANCHORE_CLI_URL='http://localhost:8228/v1'
+        ANCHORE_CLI_USER='admin'
+        ANCHORE_CLI_PASS='foobar'
+
     }
     stages {
         stage('cleanup') {
@@ -73,8 +77,10 @@ pipeline {
                 script {
                     echo "Starting Anchore containers"
                     sh "cd /aevolume && sudo docker-compose up -d"
-                    sleep 20
+                    sleep 30
                     sh "export PATH=/usr/local/bin:$PATH"
+                    sh "echo 'checking status ==>> ' && sudo docker-compose exec anchore-engine anchore-cli --u admin --p foobar system status"
+                    sh "echo 'checking connection to Anchore ==>> 'anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
                     echo "Starting Anchore container vulnerability scanner"
                     sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
                     sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
