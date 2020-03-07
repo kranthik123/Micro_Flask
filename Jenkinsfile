@@ -109,10 +109,23 @@ pipeline {
                 echo "Deploying to Stage Kubernetes namespace completed successfully."
             }
         }
-        stage('Test-stage') { steps { sh "echo Test-stage" } }
-        stage('Code-Coverage') { steps { sh "echo Code-Coverage" } }
-        stage('Approval-to-prod') { steps { sh "echo Approval-to-prod" } }
-        stage('Deploy-prod') { steps { sh "echo Deploy-prod" } }
+        stage('promote-to-prod') {
+            steps{
+                // Input Step
+                timeout(time: 2, unit: "MINUTES") {
+                    input message: 'Do you want to approve the deployment to production?', ok: 'Yes'
+                }
+            }
+        }
+        stage('Deploy-To-prod') {
+            steps {
+                sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat prod_deployment.yaml && sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' \$WORKSPACE/manifests/prod_deployment.yaml"
+                sh "cat \$WORKSPACE/manifests/prod_deployment.yaml"
+                echo "Deploying to Prod Kubernetes namespace."
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: "manifests/prod_deployment.yaml", credentialsId: env.CREDENTIALS_ID, verifyDeployments: false])
+                echo "Deploying to Prod Kubernetes namespace completed successfully."
+            }
+        }
     }
       post {
         always {echo 'This will always run'}
@@ -125,25 +138,4 @@ pipeline {
             }
             }
   }
-
 //===================================
-//stage('SonarQube analysis') {
-//    def scannerHome = tool 'SonarScanner 4.0';
-//    withSonarQubeEnv('SonarQube_Server') { // If you have configured more than one global server connection, you can specify its name
-//        sh "${sonarqube-scanner}/bin/sonar-scanner"
-//    }
-//}
-
-//stage('Sonarqube') {
-//    environment {
-//        scannerHome = tool 'SonarQubeScanner'
-//    }
-//    steps {
-//        withSonarQubeEnv('sonarqube') {
-//            sh "${scannerHome}/bin/sonar-scanner"
-//        }
-//        timeout(time: 10, unit: 'MINUTES') {
-//            waitForQualityGate abortPipeline: true
-//        }
-//    }
-//}
