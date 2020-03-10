@@ -71,24 +71,6 @@ pipeline {
                 }
             }
         }
-        stage('Anchore - Container Vulnerability Scanner') {
-            steps {
-                sh 'set'
-                script {
-                    echo "Starting Anchore containers"
-                    sh "cd /aevolume && sudo docker-compose up -d"
-                    sleep 30
-                    sh "export PATH=/usr/local/bin:$PATH"
-                    sh "echo 'checking connection to Anchore ==>> 'anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
-                    echo "Starting Anchore container vulnerability scanner"
-                    sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
-                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
-                    sleep 5
-                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID}"
-                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID}"
-                }
-            }
-        }
         stage('push-image') {
             steps {
                 script {
@@ -106,6 +88,24 @@ pipeline {
               echo "Deploying to Dev Kubernetes namespace"
               step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: "manifests/dev_deployment.yaml", credentialsId: env.CREDENTIALS_ID, verifyDeployments: false])
               echo "Deploying to Dev Kubernetes namespace completed successfully."
+            }
+        }
+        stage('Anchore - Container Vulnerability Scanner') {
+            steps {
+                sh 'set'
+                script {
+                    echo "Starting Anchore containers"
+                    sh "cd /aevolume && sudo docker-compose up -d"
+                    sleep 30
+                    sh "export PATH=/usr/local/bin:$PATH"
+                    sh "echo 'checking connection to Anchore ==>> 'anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
+                    echo "Starting Anchore container vulnerability scanner"
+                    sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
+                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
+                    sleep 5
+                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID}"
+                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID}"
+                }
             }
         }
         stage('promote-to-stage') {
