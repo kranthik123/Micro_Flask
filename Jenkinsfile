@@ -92,7 +92,7 @@ pipeline {
         }
         stage('Trivy - Container Security Scanner') {
             steps{
-                sh "trivy kranthik123/flask_app:${env.BUILD_ID}"
+                sh "/usr/local/bin/trivy kranthik123/flask_app:${env.BUILD_ID}"
                 }
             }
 //        stage('Anchore - Container Vulnerability Scanner') {
