@@ -98,13 +98,14 @@ pipeline {
                     sh "cd /aevolume && sudo docker-compose up -d"
                     sleep 30
                     sh "export PATH=/usr/local/bin:$PATH"
-                    sh "echo 'checking connection to Anchore ==>> 'anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
+                    echo "checking connection to Anchore"
+                    sh "anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
                     echo "Starting Anchore container vulnerability scanner"
                     sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
-                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID} --interval 10"
+                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID}"
                     sleep 5
-                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID}"
-                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID}"
+                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID} os"
+                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID} --detail"
                 }
             }
         }
