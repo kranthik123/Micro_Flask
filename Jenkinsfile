@@ -90,28 +90,32 @@ pipeline {
               echo "Deploying to Dev Kubernetes namespace completed successfully."
             }
         }
-        stage('Anchore - Container Vulnerability Scanner') {
-            steps {
-                sh 'set'
-                script {
-                    echo "Starting Anchore containers"
-                    sh "cd /aevolume && sudo docker-compose up -d"
-                    sleep 60
-//                    export PATH=/usr/local/bin:$PATH
-                    echo "checking connection to Anchore"
-                    sh "anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
-                    echo "Starting Anchore container vulnerability scanner"
-                    sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
-                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID}"
-                    sleep 10
-                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID} os"
-                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID} --detail"
+        stage('Trivy - Container Security Scanner') {
+            steps{
+                sh "trivy kranthik123/flask_app:${env.BUILD_ID}"
                 }
             }
-        }
+//        stage('Anchore - Container Vulnerability Scanner') {
+//            steps {
+//                sh 'set'
+//                script {
+//                    echo "Starting Anchore containers"
+//                    sh "cd /aevolume && sudo docker-compose up -d"
+//                    sleep 60
+////                    export PATH=/usr/local/bin:$PATH
+//                    echo "checking connection to Anchore"
+//                    sh "anchore-cli --url http://localhost:8228/v1 --u admin --p foobar system status"
+//                    echo "Starting Anchore container vulnerability scanner"
+//                    sh "anchore-cli image add kranthik123/flask_app:${env.BUILD_ID}"
+//                    sh "anchore-cli image wait kranthik123/flask_app:${env.BUILD_ID}"
+//                    sleep 10
+//                    sh "anchore-cli image vuln kranthik123/flask_app:${env.BUILD_ID} os"
+//                    sh "anchore-cli evaluate check kranthik123/flask_app:${env.BUILD_ID} --detail"
+//                }
+//            }
+//        }
         stage('promote-to-stage') {
             steps{
-                // Input Step
                 timeout(time: 10, unit: "MINUTES") {
                     input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
                 }
