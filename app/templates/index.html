@@ -1,27 +1,20 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+    <title>Umbrella Delivery!</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
 
-<Div id="heading">
-Welcome to BDD Test Automation Demo in California!
-</Div>
-<br/><br/>
-<Div>
-	<span>
-    What is your Name: 
-<input type="text" name="username" id ="username" />
+<div class="contain">
+<img src="{{url_for('static', filename='Umbrella_Delivery_Logo.png')}}" id='logo' align="middle"/>
+</div>
+<div id="Title" title="Title">Umbrella Delivery!</div>
+<div id="SubTitle" title="SubTitle">A Terrific Transportation Corporation</div>
+<div class="container">
+  <iframe width="560" height="315" class="video" id="iummb" src="https://player.vimeo.com/video/317362936?autoplay=1" frameborder="0" allowfullscreen="allowfullscreen" class="video"></iframe>
+</div>
 
-<button type="button" id="btnSubmit"
-onclick="document.getElementById('demo').innerHTML = 'Hello ' +   document.getElementById('username').value">
-Submit.</button>
-
-
-  <p><span id="demo"></span> </p>
-  
-    </span>
-    
-  
-    
-</Div>
 </body>
+
 </html>
+
