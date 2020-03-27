@@ -1,119 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Umbrella Delivery Services</title>
-    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   </head>
-  <style type="text/css">
-    body{
-      font-family: 'Muli', sans-serif;
-
-    }
-    .logo{
-    max-width: 100px;
-    }
-    header.masthead {
-    position: relative;
-    width: 100%;
-    padding-top: 150px;
-    padding-bottom: 100px;
-    color: #fff;
-    background: linear-gradient(to left,#7d94a0,#7fba26);
-    }
-    .btn-outline {
-    color: #fff;
-    border: 1px solid;
-    border-color: #fff;
-    }
-    .btn-outline:hover {
-    color: #fff;
-    border-color: #000;
-    background-color: #000;
-    }
-    header.masthead .header-content {
-    max-width: 500px;
-    margin-bottom: 100px;
-    }
-    #mainNav {
-    border-color: rgba(34,34,34,.05);
-    background-color: #fff;
-    transition: all .35s;
-    }
-    .navbar .nav-link {
-    color: #fff;
-}
-.navbar-shrink .nav-link{
-  color: #000;
-}
-section{
-  padding: 150px 0;
-}
-#about {
-    background: linear-gradient(#fdcc52,#fdc539);
-    color: #fff;
-}
-#contact{
-  background-color: #1fc8db;
-    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
-}
-    @media screen and (min-width: 992px) {
-    #mainNav {
-    border-color: transparent;
-    background-color: transparent;
-    }
-    #mainNav.navbar-shrink {
-    border-color: rgba(34,34,34,.1);
-    background-color: #fff;
-    }
-    header.masthead {
-    height: 100vh;
-    min-height: 800px;
-    padding-top: 0;
-    padding-bottom: 0;
-    }
-    }
-  </style>
-  <body>
-    <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
-     <div class="container">
-        <a class="navbar-brand" href="#"><img class="logo" src="/static/Umbrella-Delivery-Logo.png"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-      <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-        </ul>
+  <body id="page-top">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="logo" src="/static/Umbrella-Delivery-Logo.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
       </div>
-     </div>
     </nav>
     <header class="masthead">
       <div class="container h-100">
         <div class="row h-100">
           <div class="col-lg-6 my-auto">
             <div class="header-content mx-auto">
-              <div class="my-4"><h1 style="margin-top: 100px">Umbrella Delivery!</h1></div>
+              <div class="my-4">
+                <h1 style="margin-top: 100px">Umbrella Delivery!</h1>
+              </div>
               <h3 class="mb-5">A Terrific Transportation Corporation</h3>
               <a href="#download" class="btn btn-outline btn-lg">Start Now for Free!</a>
               <form class="my-4">
                 <div class="input-group mb-3">
-                  <input type="text" class="form-control form-control-lg" placeholder="Enter your delivery location" required="">
+                  <input type="text" class="form-control form-control-lg text-typing" placeholder="Enter your delivery location" required="">
                   <div class="input-group-append">
-                    <button class="btn btn-success btn-lg" type="submit">Submit</button>
+                    <button class="btn btn-success btn-lg get-inserted-value" type="button">Submit</button>
                   </div>
                 </div>
               </form>
+              <strong class="value_wrap">You have entered : <span class="inserted-value"></span></strong>
             </div>
           </div>
           <div class="col-lg-6 my-auto">
@@ -127,63 +60,56 @@ section{
     <section id="about">
       <div class="container">
         <h1 class="my-4 text-center">About Us</h1>
-        <p>Lorem ipsum dolor sit amet, nec metus leo pulvinar urna. Vestibulum ut, wisi neque rutrum. Euismod volutpat integer libero justo, sit erat dapibus tortor duis arcu elit, class nisl massa dictum eleifend adipiscing, a nec ridiculus risus egestas augue id. Ligula non nulla at curabitur feugiat, vestibulum sit at vestibulum nam arcu. Ultrices amet auctor fusce, condimentum in id, dolor diam eros in interdum viverra, ut commodo. Ac morbi risus dictum interdum, wisi pede mauris aliquam in est magna, a sapien arcu vivamus, id amet sit enim non dignissim habitant, gravida ultricies. Nullam magnis sed ornare tempor orci, erat arcu mollis, sodales et quis in nunc ligula et. Elementum et et, pede fusce lobortis ante, wisi penatibus neque tortor odio nulla numquam, libero ratione sem consequat nec mattis conubia, nibh gravida eget elit ac. Nulla in quae, proin eu litora phasellus. Ac sit amet pede, donec mollis.<p>
-
-<p>Suspendisse dapibus bibendum, nec lectus, id purus imperdiet dictum vivamus venenatis, nisl sed enim lobortis suspendisse, bibendum mollis at fames metus quisque. In phasellus nec vel vel aenean velit, ante cum libero, in ipsum et, cum imperdiet aliquam aenean. Maecenas tristique, vitae orci. Consequatur non lorem auctor neque. Ut non vel aliquam vulputate libero, id mauris ultrices, at vestibulum vestibulum vel feugiat id, hymenaeos pede integer in enim eget. Ac sed nunc. A augue, duis et augue, magna pellentesque torquent aspernatur sodales sed parturient, cursus in. In mauris scelerisque pellentesque proin, amet in, vitae velit vel est, et curae</p>
+        <p>Lorem ipsum dolor sit amet, nec metus leo pulvinar urna. Vestibulum ut, wisi neque rutrum. Euismod volutpat integer libero justo, sit erat dapibus tortor duis arcu elit, class nisl massa dictum eleifend adipiscing, a nec ridiculus risus egestas augue id. Ligula non nulla at curabitur feugiat, vestibulum sit at vestibulum nam arcu. Ultrices amet auctor fusce, condimentum in id, dolor diam eros in interdum viverra, ut commodo. Ac morbi risus dictum interdum, wisi pede mauris aliquam in est magna, a sapien arcu vivamus, id amet sit enim non dignissim habitant, gravida ultricies. Nullam magnis sed ornare tempor orci, erat arcu mollis, sodales et quis in nunc ligula et. Elementum et et, pede fusce lobortis ante, wisi penatibus neque tortor odio nulla numquam, libero ratione sem consequat nec mattis conubia, nibh gravida eget elit ac. Nulla in quae, proin eu litora phasellus. Ac sit amet pede, donec mollis.
+        <p>
+        <p>Suspendisse dapibus bibendum, nec lectus, id purus imperdiet dictum vivamus venenatis, nisl sed enim lobortis suspendisse, bibendum mollis at fames metus quisque. In phasellus nec vel vel aenean velit, ante cum libero, in ipsum et, cum imperdiet aliquam aenean. Maecenas tristique, vitae orci. Consequatur non lorem auctor neque. Ut non vel aliquam vulputate libero, id mauris ultrices, at vestibulum vestibulum vel feugiat id, hymenaeos pede integer in enim eget. Ac sed nunc. A augue, duis et augue, magna pellentesque torquent aspernatur sodales sed parturient, cursus in. In mauris scelerisque pellentesque proin, amet in, vitae velit vel est, et curae</p>
       </div>
     </section>
     <section id="contact">
-      <div class="container">
+      <div class="container text-white">
         <h1 class="my-4 text-center">Contact Us</h1>
-        <p>Lorem ipsum dolor sit amet, nec metus leo pulvinar urna. Vestibulum ut, wisi neque rutrum. Euismod volutpat integer libero justo, sit erat dapibus tortor duis arcu elit, class nisl massa dictum eleifend adipiscing, a nec ridiculus risus egestas augue id. Ligula non nulla at curabitur feugiat, vestibulum sit at vestibulum nam arcu. Ultrices amet auctor fusce, condimentum in id, dolor diam eros in interdum viverra, ut commodo. Ac morbi risus dictum interdum, wisi pede mauris aliquam in est magna, a sapien arcu vivamus, id amet sit enim non dignissim habitant, gravida ultricies. Nullam magnis sed ornare tempor orci, erat arcu mollis, sodales et quis in nunc ligula et. Elementum et et, pede fusce lobortis ante, wisi penatibus neque tortor odio nulla numquam, libero ratione sem consequat nec mattis conubia, nibh gravida eget elit ac. Nulla in quae, proin eu litora phasellus. Ac sit amet pede, donec mollis.<p>
-
-<p>Suspendisse dapibus bibendum, nec lectus, id purus imperdiet dictum vivamus venenatis, nisl sed enim lobortis suspendisse, bibendum mollis at fames metus quisque. In phasellus nec vel vel aenean velit, ante cum libero, in ipsum et, cum imperdiet aliquam aenean. Maecenas tristique, vitae orci. Consequatur non lorem auctor neque. Ut non vel aliquam vulputate libero, id mauris ultrices, at vestibulum vestibulum vel feugiat id, hymenaeos pede integer in enim eget. Ac sed nunc. A augue, duis et augue, magna pellentesque torquent aspernatur sodales sed parturient, cursus in. In mauris scelerisque pellentesque proin, amet in, vitae velit vel est, et curae</p>
+        <h4>Address:</h4>
+        <p>The White House</p>
+        <p>1600 Pennsylvania Ave NW, Washington, DC 20500</p>
+        <h4>Phone number:</h4>
+        <p>(xxx) - xxx - xxxx</p>
+        <ul class="list-inline list-social">
+          <li class="list-inline-item social-twitter">
+            <a href="#">
+            <i class="fab fa-2x fa-twitter"></i>
+            </a>
+          </li>
+          <li class="list-inline-item social-facebook">
+            <a href="#">
+            <i class="fab fa-2x fa-facebook-f"></i>
+            </a>
+          </li>
+          <li class="list-inline-item social-google-plus">
+            <a href="#">
+            <i class="fab fa-2x fa-google-plus-g"></i>
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
+    <footer class="text-center py-4 bg-dark text-white">
+      <div class="container">
+        <p class="mb-0">© Kranthi Kavuri 2020. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="/static/custom.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script>
+      $(document).ready(function(){
+         $('.get-inserted-value').click(function(){      
+          var typedText=$('.text-typing').val();
+          $('.inserted-value').html(typedText);
+          $(".value_wrap").show();
+         });
+      });
+    </script>
   </body>
-  <script type="text/javascript">
-    (function($) {
-    "use strict"; // Start of use strict
-    
-    // Smooth scrolling using jQuery easing
-    $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: (target.offset().top - 48)
-        }, 1000, "easeInOutExpo");
-        return false;
-      }
-    }
-    });
-    
-    // Closes responsive menu when a scroll trigger link is clicked
-    $('.js-scroll-trigger').click(function() {
-    $('.navbar-collapse').collapse('hide');
-    });
-    
-    // Activate scrollspy to add active class to navbar items on scroll
-    $('body').scrollspy({
-    target: '#mainNav',
-    offset: 54
-    });
-    
-    // Collapse Navbar
-    var navbarCollapse = function() {
-    if ($("#mainNav").offset().top > 100) {
-      $("#mainNav").addClass("navbar-shrink");
-    } else {
-      $("#mainNav").removeClass("navbar-shrink");
-    }
-    };
-    // Collapse now if page is not at top
-    navbarCollapse();
-    // Collapse the navbar when page is scrolled
-    $(window).scroll(navbarCollapse);
-    
-    })(jQuery); // End of use strict
-    
-  </script>
 </html>
