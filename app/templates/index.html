@@ -1,20 +1,156 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Umbrella Delivery!</title>
-    <link rel="stylesheet" href="static/style.css">
-</head>
-
-<div class="contain">
-<img src="{{url_for('static', filename='Umbrella_Delivery_Logo.png')}}" id='logo' align="middle"/>
-</div>
-<div id="Title" title="Title">Umbrella Delivery!</div>
-<div id="SubTitle" title="SubTitle">A Terrific Transportation Corporation</div>
-<div class="container">
-  <iframe width="560" height="315" class="video" id="iummb" src="https://player.vimeo.com/video/317362936?autoplay=1" frameborder="0" allowfullscreen="allowfullscreen" class="video"></iframe>
-</div>
-
-</body>
-
+<html lang="en">
+  <head>
+    <title>Umbrella Delivery Services</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  </head>
+  <style type="text/css">
+    .logo{
+    max-width: 100px;
+    }
+    header.masthead {
+    position: relative;
+    width: 100%;
+    padding-top: 150px;
+    padding-bottom: 100px;
+    color: #fff;
+    background: linear-gradient(to left,#7d94a0,#7fba26);
+    }
+    .btn-outline {
+    color: #fff;
+    border: 1px solid;
+    border-color: #fff;
+    }
+    .btn-outline:hover {
+    color: #fff;
+    border-color: #000;
+    background-color: #000;
+    }
+    header.masthead .header-content {
+    max-width: 500px;
+    margin-bottom: 100px;
+    }
+    #mainNav {
+    border-color: rgba(34,34,34,.05);
+    background-color: #fff;
+    transition: all .35s;
+    }
+    .navbar .nav-link {
+    color: #fff;
+}
+.navbar-shrink .nav-link{
+  color: #000;
+}
+    @media screen and (min-width: 992px) {
+    #mainNav {
+    border-color: transparent;
+    background-color: transparent;
+    }
+    #mainNav.navbar-shrink {
+    border-color: rgba(34,34,34,.1);
+    background-color: #fff;
+    }
+    header.masthead {
+    height: 100vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    }
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
+     <div class="container">
+        <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/Umbrella-Delivery-Logo.png"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+     </div>
+    </nav>
+    <header class="masthead">
+      <div class="container h-100">
+        <div class="row h-100">
+          <div class="col-lg-6 my-auto">
+            <div class="header-content mx-auto">
+              <h1>Umbrella Delivery!</h1>
+              <h3 class="mb-5">A Terrific Transportation Corporation</h3>
+              <a href="#download" class="btn btn-outline btn-lg">Start Now for Free!</a>
+              <form class="my-4">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control form-control-lg" placeholder="Enter your delivery location" required="">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btn-lg" type="submit">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-6 my-auto">
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe width="560" height="315" class="video" id="iummb" src="https://player.vimeo.com/video/317362936?autoplay=1" frameborder="0" allowfullscreen="allowfullscreen" class="video"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+  <script type="text/javascript">
+    (function($) {
+    "use strict"; // Start of use strict
+    
+    // Smooth scrolling using jQuery easing
+    $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
+    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+      if (target.length) {
+        $('html, body').animate({
+          scrollTop: (target.offset().top - 48)
+        }, 1000, "easeInOutExpo");
+        return false;
+      }
+    }
+    });
+    
+    // Closes responsive menu when a scroll trigger link is clicked
+    $('.js-scroll-trigger').click(function() {
+    $('.navbar-collapse').collapse('hide');
+    });
+    
+    // Activate scrollspy to add active class to navbar items on scroll
+    $('body').scrollspy({
+    target: '#mainNav',
+    offset: 54
+    });
+    
+    // Collapse Navbar
+    var navbarCollapse = function() {
+    if ($("#mainNav").offset().top > 100) {
+      $("#mainNav").addClass("navbar-shrink");
+    } else {
+      $("#mainNav").removeClass("navbar-shrink");
+    }
+    };
+    // Collapse now if page is not at top
+    navbarCollapse();
+    // Collapse the navbar when page is scrolled
+    $(window).scroll(navbarCollapse);
+    
+    })(jQuery); // End of use strict
+    
+  </script>
 </html>
-
