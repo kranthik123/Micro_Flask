@@ -4,12 +4,17 @@
     <title>Umbrella Delivery Services</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   </head>
   <style type="text/css">
+    body{
+      font-family: 'Muli', sans-serif;
+
+    }
     .logo{
     max-width: 100px;
     }
@@ -46,6 +51,17 @@
 .navbar-shrink .nav-link{
   color: #000;
 }
+section{
+  padding: 150px 0;
+}
+#about {
+    background: linear-gradient(#fdcc52,#fdc539);
+    color: #fff;
+}
+#contact{
+  background-color: #1fc8db;
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
     @media screen and (min-width: 992px) {
     #mainNav {
     border-color: transparent;
@@ -57,6 +73,7 @@
     }
     header.masthead {
     height: 100vh;
+    min-height: 800px;
     padding-top: 0;
     padding-bottom: 0;
     }
@@ -65,17 +82,17 @@
   <body>
     <nav class="navbar navbar-expand-md fixed-top" id="mainNav">
      <div class="container">
-        <a class="navbar-brand" href="#"><img class="logo" src="./assets/img/Umbrella-Delivery-Logo.png"></a>
+        <a class="navbar-brand" href="#"><img class="logo" src="/static/Umbrella-Delivery-Logo.png"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <a class="nav-link" href="#about">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#contact">Contact</a>
           </li>
         </ul>
       </div>
@@ -86,7 +103,7 @@
         <div class="row h-100">
           <div class="col-lg-6 my-auto">
             <div class="header-content mx-auto">
-              <h1>Umbrella Delivery!</h1>
+              <div class="my-4"><h1 style="margin-top: 100px">Umbrella Delivery!</h1></div>
               <h3 class="mb-5">A Terrific Transportation Corporation</h3>
               <a href="#download" class="btn btn-outline btn-lg">Start Now for Free!</a>
               <form class="my-4">
@@ -107,6 +124,22 @@
         </div>
       </div>
     </header>
+    <section id="about">
+      <div class="container">
+        <h1 class="my-4 text-center">About Us</h1>
+        <p>Lorem ipsum dolor sit amet, nec metus leo pulvinar urna. Vestibulum ut, wisi neque rutrum. Euismod volutpat integer libero justo, sit erat dapibus tortor duis arcu elit, class nisl massa dictum eleifend adipiscing, a nec ridiculus risus egestas augue id. Ligula non nulla at curabitur feugiat, vestibulum sit at vestibulum nam arcu. Ultrices amet auctor fusce, condimentum in id, dolor diam eros in interdum viverra, ut commodo. Ac morbi risus dictum interdum, wisi pede mauris aliquam in est magna, a sapien arcu vivamus, id amet sit enim non dignissim habitant, gravida ultricies. Nullam magnis sed ornare tempor orci, erat arcu mollis, sodales et quis in nunc ligula et. Elementum et et, pede fusce lobortis ante, wisi penatibus neque tortor odio nulla numquam, libero ratione sem consequat nec mattis conubia, nibh gravida eget elit ac. Nulla in quae, proin eu litora phasellus. Ac sit amet pede, donec mollis.<p>
+
+<p>Suspendisse dapibus bibendum, nec lectus, id purus imperdiet dictum vivamus venenatis, nisl sed enim lobortis suspendisse, bibendum mollis at fames metus quisque. In phasellus nec vel vel aenean velit, ante cum libero, in ipsum et, cum imperdiet aliquam aenean. Maecenas tristique, vitae orci. Consequatur non lorem auctor neque. Ut non vel aliquam vulputate libero, id mauris ultrices, at vestibulum vestibulum vel feugiat id, hymenaeos pede integer in enim eget. Ac sed nunc. A augue, duis et augue, magna pellentesque torquent aspernatur sodales sed parturient, cursus in. In mauris scelerisque pellentesque proin, amet in, vitae velit vel est, et curae</p>
+      </div>
+    </section>
+    <section id="contact">
+      <div class="container">
+        <h1 class="my-4 text-center">Contact Us</h1>
+        <p>Lorem ipsum dolor sit amet, nec metus leo pulvinar urna. Vestibulum ut, wisi neque rutrum. Euismod volutpat integer libero justo, sit erat dapibus tortor duis arcu elit, class nisl massa dictum eleifend adipiscing, a nec ridiculus risus egestas augue id. Ligula non nulla at curabitur feugiat, vestibulum sit at vestibulum nam arcu. Ultrices amet auctor fusce, condimentum in id, dolor diam eros in interdum viverra, ut commodo. Ac morbi risus dictum interdum, wisi pede mauris aliquam in est magna, a sapien arcu vivamus, id amet sit enim non dignissim habitant, gravida ultricies. Nullam magnis sed ornare tempor orci, erat arcu mollis, sodales et quis in nunc ligula et. Elementum et et, pede fusce lobortis ante, wisi penatibus neque tortor odio nulla numquam, libero ratione sem consequat nec mattis conubia, nibh gravida eget elit ac. Nulla in quae, proin eu litora phasellus. Ac sit amet pede, donec mollis.<p>
+
+<p>Suspendisse dapibus bibendum, nec lectus, id purus imperdiet dictum vivamus venenatis, nisl sed enim lobortis suspendisse, bibendum mollis at fames metus quisque. In phasellus nec vel vel aenean velit, ante cum libero, in ipsum et, cum imperdiet aliquam aenean. Maecenas tristique, vitae orci. Consequatur non lorem auctor neque. Ut non vel aliquam vulputate libero, id mauris ultrices, at vestibulum vestibulum vel feugiat id, hymenaeos pede integer in enim eget. Ac sed nunc. A augue, duis et augue, magna pellentesque torquent aspernatur sodales sed parturient, cursus in. In mauris scelerisque pellentesque proin, amet in, vitae velit vel est, et curae</p>
+      </div>
+    </section>
   </body>
   <script type="text/javascript">
     (function($) {
