@@ -1,55 +1,93 @@
-<style>* {
-    box-sizing: border-box;
-}
 body {
-    margin: 0;
+	font-family: Muli, Helvetica, Arial, sans-serif !important;
 }
-*{
-    box-sizing:border-box;
+
+.logo {
+	max-width: 100px;
 }
-body{
-    margin:0;
+
+header.masthead {
+	position: relative;
+	width: 100%;
+	padding-top: 150px;
+	padding-bottom: 100px;
+	color: #fff;
+	background: linear-gradient(to left, #7d94a0, #7fba26);
 }
-#logo{
-    height: 250px;
-    width: 300px;
-    /*margin-left: auto;*/
-    /*margin-right: auto;*/
-    /*vertical-align:top;*/
-    /*vertical-align:middle;*/
+
+.btn-outline {
+	border: 1px solid #fff !important;
+	color: #fff !important;
 }
-#Title{
-    padding:20px;
-    position:absolute;
-    text-align:center;
-    top:30%;
-    right:0;
-    left:0;
-    font-size:34px;
-    bottom:auto;
+
+.btn-outline:hover {
+	color: #fff;
+	border-color: #000 !important;
+	background-color: #000;
 }
-#SubTitle{
-    padding:10px;
-    position:absolute;
-    top:35%;
-    right:0;
-    left:0;
-    font-weight:600;
-    text-align:center;
-    font-size:14px;
+
+header.masthead .header-content {
+	max-width: 500px;
+	margin-bottom: 100px;
 }
-.container {
-    margin:10% 0 0 0;
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%;
+
+#mainNav {
+	border-color: rgba(34, 34, 34, .05);
+	background-color: #fff;
+	transition: all .35s;
 }
-.video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
+#mainNav .navbar-nav>li>a {
+	font-size: 11px;
+	font-family: Lato, Helvetica, Arial, sans-serif;
+	letter-spacing: 2px;
+	text-transform: uppercase;
 }
-</style>
+
+.bg-light {
+	background-color: transparent;
+}
+
+.navbar .nav-link {
+	color: #fff;
+	text-transform: uppercase;
+}
+
+.navbar-shrink .nav-link {
+	color: #000;
+}
+
+section {
+	padding: 150px 0;
+}
+
+#about {
+	background: linear-gradient(#fdcc52, #fdc539);
+	color: #fff;
+}
+
+#contact {
+	background-color: #1fc8db;
+	background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
+
+.value_wrap {
+	display: none;
+}
+
+@media screen and (min-width: 992px) {
+	#mainNav {
+		border-color: transparent;
+		background-color: transparent;
+	}
+	#mainNav.navbar-shrink {
+		border-color: rgba(34, 34, 34, .1);
+		background-color: #fff;
+	}
+	header.masthead {
+		height: 100vh;
+		min-height: 800px;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+}
