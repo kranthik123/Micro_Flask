@@ -84,11 +84,23 @@
         -webkit-animation-name: fadeIn;
         animation-name: fadeIn;
         }
+        .errror_messagess{
+        	display: none;
+        }
+        .errror_messagess span{
+        	display: block;
+        	font-size: 12px;
+        	color: red;
+        }
+        #order{
+        	display: none;
+        }
+        
     </style>
     <body id="page-top">
         <nav class="navbar navbar-expand-md navbar-light fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top"><img class="logo" src="./static/LOGO-TTC.png"></a>
+                <a class="navbar-brand js-scroll-trigger" href=""><img class="logo" src="./static/LOGO-TTC.png"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation">
                 <span class="navbar-toggler-icon"></span>
                 </button>
@@ -121,16 +133,21 @@
                             </div>
                             <div class="form-group">
                                 <select class="custom-select form-control form-control-lg" id="productselect" required>
-                                    <option value="">Select a product</option>
-                                    
+                                    <option value="default">Select a product</option>
                                 </select>
+                                <div class="errror_messagess select_product_error">
+                                	<span>Select Product</span>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <select class="custom-select form-control form-control-lg" id="payinfo" required>
-                                    <option value="">Select Payment info</option>
+                                    <option value="default">Select Payment info</option>
                                     <option value="Card ending in 5678">Card ending in 5678</option>
                                     <option value="Add a new card">Add a new card</option>
                                 </select>
+                                <div class="errror_messagess select_payment_error">
+                                	<span>Select Payment info</span>
+                                </div>
                             </div>
                             <div class="text-center"> <a class="btn btn-primary js-scroll-trigger" id="test" href="">Request</a> </div>
                         </form>
@@ -153,7 +170,7 @@
                 </div>
             </div>
         </section>
-        <section id="order" style="display: none">
+        <section id="order">
             <div class="container text-center">
                 <h1 class="mb-4 animated fadeIn">My Order</h1>
                 <img src="./static/process.png" class="img-fluid">
@@ -180,10 +197,40 @@
         <script src="./static/custom.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
         <script type="text/javascript">
-            $("#test").click(function(){
-             $("#test").attr("href", "#order");
-            $("#order").css({"display":"block","padding-top":"100px"});
+            $("#test").click(function(e){
+                e.preventDefault();
+                if($("#productselect").val() != "default" && $("#payinfo").val() != "default"){
+                    $("#test").attr("href", "#order");
+                    $("#order").css({"display":"block","padding-top":"100px"});
+                    $('html, body').animate({
+		                scrollTop: $("#order").offset().top
+		            }, 1000);
+                }
+                else{
+                	if($("#productselect").val() == "default"){
+                		$('.select_product_error').show()
+                	}
+                	if($("#payinfo").val() == "default"){
+                		$('.select_payment_error').show()
+                	}	
+                }
             });
+            $("#productselect" ).change(function() {
+			  	if($(this).val() == "default"){
+            		$('.select_product_error').show()
+            	}
+            	else{
+            		$('.select_product_error').hide()	
+            	}
+			});
+			$("#payinfo" ).change(function() {
+			  	if($(this).val() == "default"){
+            		$('.select_payment_error').show()
+            	}
+            	else{
+            		$('.select_payment_error').hide()	
+            	}
+			});
         </script>
         <script type="text/javascript">
             $.getJSON("http://34.68.115.152/", function(data) {
