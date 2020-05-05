@@ -114,13 +114,13 @@ pipeline {
 //                }
 //            }
 //        }
-        stage('promote-to-stage') {
-            steps{
-                timeout(time: 10, unit: "MINUTES") {
-                    input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
-                }
-            }
-        }
+//        stage('promote-to-stage') {
+//            steps{
+//                timeout(time: 10, unit: "MINUTES") {
+//                    input message: 'Do you want to approve the deploy in Stage?', ok: 'Yes'
+//                }
+//            }
+//        }
         stage('Deploy-To-stage') {
             steps {
                 sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat stage_deployment.yaml && sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' \$WORKSPACE/manifests/stage_deployment.yaml"
@@ -130,14 +130,14 @@ pipeline {
                 echo "Deploying to Stage Kubernetes namespace completed successfully."
             }
         }
-        stage('promote-to-prod') {
-            steps{
-                // Input Step
-                timeout(time: 10, unit: "MINUTES") {
-                    input message: 'Do you want to approve the deployment to production?', ok: 'Yes'
-                }
-            }
-        }
+//        stage('promote-to-prod') {
+//            steps{
+//                // Input Step
+//                timeout(time: 10, unit: "MINUTES") {
+//                    input message: 'Do you want to approve the deployment to production?', ok: 'Yes'
+//                }
+//            }
+//        }
         stage('Deploy-To-prod') {
             steps {
                 sh "cd \$WORKSPACE/manifests && pwd && ls -l && cat prod_deployment.yaml && sed -i 's/flask_app:latest/flask_app:${env.BUILD_ID}/g' \$WORKSPACE/manifests/prod_deployment.yaml"
